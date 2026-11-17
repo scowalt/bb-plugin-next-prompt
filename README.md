@@ -4,9 +4,10 @@ A bb plugin that suggests your next message after each agent turn.
 
 When a thread goes idle, the plugin sends your last few messages, the thread
 title and the agent's reply to your OpenCode Go subscription and asks it to
-write what you would type next. The suggestion appears as a chip above the
-composer. Click it to put the text in the composer, or click × to dismiss it.
-When the work looks finished, the model answers `NONE` and no chip appears.
+write a few different messages you might type next, most likely first. Each
+appears as a chip above the composer. Click one to put its text in the
+composer, or click × to dismiss them all. When the work looks finished, the
+model answers `NONE` and no chips appear.
 
 ## Install
 
@@ -21,6 +22,8 @@ bb plugin update next-prompt   # later releases in the same range
 
 - **Suggest next prompts** — on by default.
 - **Model** — an OpenCode Go model id; default `glm-5.3-flash`.
+- **Suggestions** — how many options to ask for, 1 to 5; default 3. The model
+  may offer fewer when there are fewer sensible next steps.
 
 ## What it sends where
 

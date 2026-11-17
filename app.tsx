@@ -10,18 +10,18 @@ import "./app.css";
 
 function useSuggestion(threadId: string | null) {
   const rpc = useRpc<typeof rpcContract>();
-  const [text, setText] = useState<string | null>(null);
+  const [options, setOptions] = useState<readonly string[]>([]);
 
   const refetch = useCallback(() => {
     if (threadId === null) return;
     rpc.call("suggestion", { threadId }).then(
-      (result) => setText(result.text),
-      () => setText(null),
+      (result) => setOptions(result.options),
+      () => setOptions([]),
     );
   }, [rpc, threadId]);
 
   useEffect(() => {
-    setText(null);
+    setOptions([]);
     refetch();
   }, [refetch]);
 
@@ -34,39 +34,42 @@ function useSuggestion(threadId: string | null) {
   });
 
   const dismiss = useCallback(() => {
-    setText(null);
+    setOptions([]);
     if (threadId !== null) void rpc.call("dismiss", { threadId });
   }, [rpc, threadId]);
 
-  return { text, dismiss };
+  return { options, dismiss };
 }
 
 function NextPromptBanner() {
   const composer = useComposer();
   const threadId =
     composer.scope.kind === "thread" ? composer.scope.threadId : null;
-  const { text, dismiss } = useSuggestion(threadId);
+  const { options, dismiss } = useSuggestion(threadId);
 
   useEffect(() => composer.onSubmitted(dismiss), [composer, dismiss]);
 
-  if (text === null || !composer.isEmpty) return null;
+  if (options.length === 0 || !composer.isEmpty) return null;
 
   return (
     <div className="next-prompt-banner">
+      {options.map((text) => (
+        <button
+          className="next-prompt-text"
+          key={text}
+          onClick={() => {
+            composer.insert(text, { at: "end" });
+            composer.focus();
+            dismiss();
+          }}
+          title={text}
+          type="button"
+        >
+          {text}
+        </button>
+      ))}
       <button
-        className="next-prompt-text"
-        onClick={() => {
-          composer.insert(text, { at: "end" });
-          composer.focus();
-          dismiss();
-        }}
-        title="Put this in the composer"
-        type="button"
-      >
-        {text}
-      </button>
-      <button
-        aria-label="Dismiss suggestion"
+        aria-label="Dismiss suggestions"
         className="next-prompt-dismiss"
         onClick={dismiss}
         type="button"
