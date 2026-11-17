@@ -1,0 +1,33 @@
+.next-prompt-banner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 12px 6px;
+}
+.next-prompt-text {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.next-prompt-text:hover {
+  color: var(--foreground);
+  background: var(--accent);
+}
+.next-prompt-dismiss {
+  padding: 2px 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
