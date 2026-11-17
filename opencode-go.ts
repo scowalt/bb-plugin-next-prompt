@@ -8,7 +8,7 @@ export const CHAT_COMPLETIONS_URL =
   "https://opencode.ai/inference/go/openai/v1/chat/completions";
 export const USER_AGENT = "bb-plugin-next-prompt/0.1.0";
 export const DEFAULT_MODEL = "glm-5.3-flash";
-const MAX_TOKENS = 300;
+const MAX_TOKENS = 600;
 
 const authFileSchema = z.object({
   "opencode-go": z.object({ type: z.literal("api"), key: z.string().min(1) }),
