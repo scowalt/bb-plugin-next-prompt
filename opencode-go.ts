@@ -6,7 +6,7 @@ import { z } from "zod";
 
 export const CHAT_COMPLETIONS_URL =
   "https://opencode.ai/inference/go/openai/v1/chat/completions";
-export const USER_AGENT = "bb-plugin-next-prompt/0.1.0";
+export const USER_AGENT = "bb-plugin-next-prompt/0.1.1";
 export const DEFAULT_MODEL = "glm-5.3-flash";
 const MAX_TOKENS = 600;
 
